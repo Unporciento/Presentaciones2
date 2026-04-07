@@ -59,7 +59,7 @@
   <div class="top-bar">
     <div style="display: flex; align-items: center; gap: 10px;">
       <strong style="font-size: 18px;">🚜 App INACAP</strong>
-      <button onclick="toggleTheme()" style="background:none; border:none; font-size: 20px; cursor:pointer;">🌗</button>
+      <button type="button" onclick="toggleTheme()" style="background:none; border:none; font-size: 20px; cursor:pointer;">🌗</button>
     </div>
     <div class="xp-badge" id="xpDisplay">✨ Nivel 1</div>
   </div>
@@ -101,7 +101,7 @@
       <div class="question-box"><h3 id="questionText" style="margin: 0; line-height: 1.4;"></h3></div>
       <div id="optionsArea"></div>
       <div id="explanationArea" class="explanation hidden" style="margin-bottom: 15px;"></div>
-      <button class="btn btn-primary hidden" id="btnNext" onclick="nextQuestion()">Siguiente Pregunta →</button>
+      <button type="button" class="btn btn-primary hidden" id="btnNext" onclick="nextQuestion()">Siguiente Pregunta →</button>
     </section>
 
     <section id="resultsSection" class="section text-center">
@@ -109,21 +109,18 @@
         <div id="resEmoji" style="font-size: 60px; margin-bottom: 10px;">🏆</div>
         <h1 id="resScore" style="font-size: 48px; color: var(--primary); margin: 0;">100%</h1>
         <p class="sub" id="resMsg" style="font-size: 16px; margin-top: 5px;">¡Excelente!</p>
-        <button class="btn btn-primary" style="margin-top: 20px;" onclick="switchTab('homeSection')">Volver al Inicio</button>
+        <button type="button" class="btn btn-primary" style="margin-top: 20px;" onclick="switchTab('homeSection')">Volver al Inicio</button>
       </div>
     </section>
   </div>
 
   <nav class="bottom-nav" id="bottomNav">
-    <button onclick="switchTab('homeSection')" id="tab-homeSection" class="active-tab"><span class="nav-icon">📝</span><span>Test</span></button>
+    <button type="button" onclick="switchTab('homeSection')" id="tab-homeSection" class="active-tab"><span class="nav-icon">📝</span><span>Test</span></button>
   </nav>
 
   <script>
-    // ==========================================
-    // MEGA BASE DE DATOS INACAP (CLASIFICADA)
-    // ==========================================
     const db = {
-      week2: { // Fallos mecánicos en maquinaria pesada
+      week2: {
         facil: [
           { type: "mcq", question: "¿Qué se entiende por 'falla' en maquinaria pesada?", options: ["Un ruido anormal del motor", "Pérdida de funcionalidad parcial o total de una pieza", "La forma en que se rompe una pieza", "El fin de la vida útil según el fabricante"], correct: "Pérdida de funcionalidad parcial o total de una pieza", explanation: "Fallo significa pérdida de funcionalidad." },
           { type: "mcq", question: "¿Cómo se clasifica una falla que ocurre debido a la evolución progresiva de una condición anómala?", options: ["Falla Súbita", "Falla Completa", "Falla Progresiva", "Falla Parcial"], correct: "Falla Progresiva", explanation: "Se desarrolla con el tiempo, a diferencia de la súbita." },
@@ -145,7 +142,7 @@
           { type: "mcq", question: "¿Qué es el 'Ludimiento' (Fretting) en ejes de maquinaria pesada?", options: ["Un desgaste mecánico y corrosivo generado por micro-movimientos oscilatorios entre superficies en contacto ajustado", "Una fractura por torsión extrema", "El sobrecalentamiento del lubricante", "El pandeo de una lámina metálica"], correct: "Un desgaste mecánico y corrosivo generado por micro-movimientos oscilatorios entre superficies en contacto ajustado", explanation: "El ludimiento es crítico en uniones por interferencia sometidas a vibración." }
         ]
       },
-      week4_1: { // Análisis de modos y efectos de falla (AMEF)
+      week4_1: {
         facil: [
           { type: "mcq", question: "¿Qué significan las siglas AMEF o FMEA?", options: ["Análisis de Motores y Elementos Frágiles", "Análisis de Modo y Efectos de Falla", "Asociación Mecánica de Evaluación de Fatiga", "Acción de Mejoramiento en Engranajes y Fundiciones"], correct: "Análisis de Modo y Efectos de Falla", explanation: "En inglés: Failure Mode and Effects Analysis." },
           { type: "mcq", question: "¿Cuál es el objetivo principal de aplicar un AMEF?", options: ["Despedir al personal de mantenimiento", "Mejorar la calidad, fiabilidad y seguridad de los activos evitando fallos", "Comprar repuestos más baratos", "Acelerar la producción de la máquina"], correct: "Mejorar la calidad, fiabilidad y seguridad de los activos evitando fallos", explanation: "Es un método predictivo y preventivo." },
@@ -161,13 +158,13 @@
           { type: "mcq", question: "¿Cuál es una debilidad o limitación del sistema AMEF?", options: ["Es demasiado rápido de hacer", "Los tres factores (G,F,D) tienen el mismo peso matemático, lo que puede dar un análisis simplista", "No permite calcular frecuencias", "Solo se aplica a automóviles"], correct: "Los tres factores (G,F,D) tienen el mismo peso matemático, lo que puede dar un análisis simplista", explanation: "Un fallo de alta gravedad pero muy detectable podría dar el mismo NPR que un fallo leve pero indetectable, lo cual es peligroso." }
         ],
         dificil: [
-          { type: "mcq", question: "Según la tabla de valoración de índices AMEF (Notas FMA), ¿qué criterio define a una Gravedad de nivel 9 a 10 (Muy Alto)?", options: ["Detención menor a 1 hora", "Fallas ocasionales 1 vez por mes", "Provoca detenciones de equipos y procesos productivos mayores a 8 horas", "La falla se detecta con toda certeza"], correct: "Provoca detenciones de equipos y procesos productivos mayores a 8 horas", explanation: "Las detenciones que superan un turno completo de trabajo se consideran de máxima gravedad." },
+          { type: "mcq", question: "Según la tabla de valoración de índices AMEF, ¿qué criterio define a una Gravedad de nivel 9 a 10 (Muy Alto)?", options: ["Detención menor a 1 hora", "Fallas ocasionales 1 vez por mes", "Provoca detenciones de equipos y procesos productivos mayores a 8 horas", "La falla se detecta con toda certeza"], correct: "Provoca detenciones de equipos y procesos productivos mayores a 8 horas", explanation: "Las detenciones que superan un turno completo de trabajo se consideran de máxima gravedad." },
           { type: "mcq", question: "Si un inyector falla por 'Combustible no adecuado', se asignó una Gravedad de 9, Frecuencia 1, y Detección 8. ¿Cuál es el NPR y qué indica?", options: ["NPR 18, falla leve", "NPR 72, es el fallo más crítico que requiere prioridad alta", "NPR 8, no hay que hacer nada", "NPR 72, pero el filtro de aire es más importante"], correct: "NPR 72, es el fallo más crítico que requiere prioridad alta", explanation: "9 x 1 x 8 = 72. En el ejemplo del camión, es el valor más alto y por ende la mayor prioridad de mantención." },
           { type: "mcq", question: "¿En qué década y en qué país comenzó el desarrollo e implementación del FMEA en la industria aeroespacial?", options: ["Alemania, años 80", "Japón, años 30", "Estados Unidos, años 50 (implementado por la NASA en los 60)", "Reino Unido, años 20"], correct: "Estados Unidos, años 50 (implementado por la NASA en los 60)", explanation: "El ejército de EE.UU y la NASA durante el programa Apolo fueron los pioneros de esta metodología." },
           { type: "mcq", question: "En la metodología AMEF, ¿por qué es problemático que no se detecte un problema potencial (falla oculta) en relación al índice de riesgo?", options: ["Porque el índice de riesgo bajará erróneamente en el cálculo", "Porque si se subestima la gravedad, el índice de riesgo se mantendrá artificialmente bajo ignorando crisis inminentes", "Porque el NPR será cero", "Porque no se puede multiplicar por letras"], correct: "Porque si se subestima la gravedad, el índice de riesgo se mantendrá artificialmente bajo ignorando crisis inminentes", explanation: "La falla humana en estimar la detección o gravedad hace que problemas catastróficos no salten en las alarmas del AMEF." }
         ]
       },
-      week4_2: { // Ensayos no destructivos (END)
+      week4_2: {
         facil: [
           { type: "mcq", question: "¿Qué son los Ensayos No Destructivos (END)?", options: ["Pruebas de choque que rompen el material para medir resistencia", "Métodos para examinar materiales sin causarles daños que imposibiliten su uso", "Pruebas químicas para fundir metales", "Ensayos exclusivos para plásticos"], correct: "Métodos para examinar materiales sin causarles daños que imposibiliten su uso", explanation: "Buscan inspeccionar la integridad sin destruir la pieza." },
           { type: "mcq", question: "¿Cuál es el ensayo END más antiguo, utilizado y económico?", options: ["Ultrasonido", "Rayos X", "Inspección Visual", "Tintas Penetrantes"], correct: "Inspección Visual", explanation: "Es el primer filtro y la base de cualquier mantenimiento, solo usa la vista humana." },
@@ -189,7 +186,7 @@
           { type: "mcq", question: "En un diagrama de flujo de inspección visual, ¿cuál es la etapa que sigue inmediatamente a la 'Observación'?", options: ["Limpieza final", "Preparación de la superficie", "Interpretación (y posterior evaluación)", "Aplicación de reactivos"], correct: "Interpretación (y posterior evaluación)", explanation: "Una vez que observas la anomalía, debes interpretarla (¿qué es esto?) y evaluarla (¿supera la norma de rechazo?)." }
         ]
       },
-      week5: { // Industria 4.0 en maquinaria pesada
+      week5: {
         facil: [
           { type: "mcq", question: "¿A qué se refiere el término 'Industria 4.0'?", options: ["Al uso de la máquina de vapor", "A la cuarta revolución industrial impulsada por la tecnología digital, IoT y procesamiento de datos", "A la creación de la línea de ensamblaje de Ford", "A la industria petrolera exclusivamente"], correct: "A la cuarta revolución industrial impulsada por la tecnología digital, IoT y procesamiento de datos", explanation: "Es el paso hacia las 'fábricas y maquinarias inteligentes'." },
           { type: "mcq", question: "¿Qué tendencia tecnológica busca crear representaciones virtuales exactas de las máquinas y obras?", options: ["Robótica", "Gemelos Digitales y BIM", "5G", "Hidrógeno"], correct: "Gemelos Digitales y BIM", explanation: "Permiten simular el comportamiento de la máquina antes de construirla o usarla físically." },
@@ -213,15 +210,30 @@
       }
     };
 
-    // ==========================================
-    // LÓGICA DE LA APLICACIÓN
-    // ==========================================
     function getQuestionsByDifficulty(weekData, diff) {
       if (diff === 'facil') return [...weekData.facil];
       if (diff === 'medio') return [...weekData.medio];
       if (diff === 'dificil') return [...weekData.dificil];
-      // Progresivo: concatena en orden. Mixto: también las junta pero luego se barajan.
       return [...weekData.facil, ...weekData.medio, ...weekData.dificil];
+    }
+
+    let currentBank = [], currIdx = 0, score = 0, earnedSessionXP = 0;
+    let mistakes = JSON.parse(localStorage.getItem('inacap_mistakes')) || [];
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      let tabBtn = document.getElementById('tab-' + tabId);
+      if (tabBtn) {
+        document.querySelectorAll('.bottom-nav button').forEach(b => b.classList.remove('active-tab'));
+        tabBtn.classList.add('active-tab');
+      }
+    }
+
+    function toggleTheme() {
+      let current = document.documentElement.getAttribute('data-theme');
+      let target = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', target);
     }
 
     function startQuiz(week) {
@@ -239,14 +251,8 @@
         currentBank = getQuestionsByDifficulty(db[week], diff);
       }
 
-      if(currentBank.length === 0) { alert("Error cargando preguntas."); return; }
-
-      // Lógica de barajado:
-      if (diff !== 'progresivo' && week !== 'mistakes') {
-        // En mixto, facil, medio o dificil, barajamos aleatoriamente
-        currentBank.sort(() => Math.random() - 0.5);
-      }
-      // Si es progresivo, se mantienen en orden Facil -> Medio -> Dificil.
+      if(currentBank.length === 0) return;
+      if (diff !== 'progresivo' && week !== 'mistakes') currentBank.sort(() => Math.random() - 0.5);
 
       currIdx = 0; score = 0; earnedSessionXP = 0;
       document.getElementById('bottomNav').classList.add('hidden');
@@ -259,7 +265,6 @@
       document.getElementById('quizProgressText').innerText = `${currIdx + 1} / ${currentBank.length}`;
       document.getElementById('quizProgressBar').style.width = `${((currIdx) / currentBank.length) * 100}%`;
       
-      // Clasificador visual de dificultad del badge
       let diffClass = ''; let diffText = 'REPASO';
       for (let w in db) {
         if (db[w].facil && db[w].facil.find(x => x.question === q.question)) { diffClass = 'facil'; diffText = 'FÁCIL'; break; }
@@ -277,25 +282,16 @@
 
       const optArea = document.getElementById('optionsArea');
       optArea.innerHTML = "";
+      optArea.classList.remove('hidden');
       
-      if(q.type === 'mcq') {
-        document.getElementById('openArea').classList.add('hidden');
-        optArea.classList.remove('hidden');
-        let mixedOpts = [...q.options].sort(() => Math.random() - 0.5);
-        mixedOpts.forEach(opt => {
-          let btn = document.createElement('button');
-          btn.className = 'option'; btn.innerText = opt;
-          btn.onclick = () => evalMcq(btn, opt, q.correct, q.explanation, q);
-          optArea.appendChild(btn);
-        });
-      } else {
-        optArea.classList.add('hidden');
-        document.getElementById('openArea').classList.remove('hidden');
-        document.getElementById('openInput').value = "";
-        document.getElementById('btnShowAnswer').classList.remove('hidden');
-        document.getElementById('evalArea').classList.add('hidden');
-        document.getElementById('modelAnswerText').innerText = q.sampleAnswer;
-      }
+      let mixedOpts = [...q.options].sort(() => Math.random() - 0.5);
+      mixedOpts.forEach(opt => {
+        let btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'option'; btn.innerText = opt;
+        btn.onclick = () => evalMcq(btn, opt, q.correct, q.explanation, q);
+        optArea.appendChild(btn);
+      });
     }
 
     function evalMcq(btnObj, selected, correct, exp, qObj) {
@@ -307,31 +303,13 @@
       });
 
       if(selected === correct) { 
-        score++; addXP(10);
+        score++; earnedSessionXP += 10;
         mistakes = mistakes.filter(m => m.question !== qObj.question);
       } else {
         if(!mistakes.find(m => m.question === qObj.question)) mistakes.push(qObj);
       }
       localStorage.setItem('inacap_mistakes', JSON.stringify(mistakes));
       showFeedback(exp);
-    }
-
-    function revealOpenAnswer() {
-      document.getElementById('btnShowAnswer').classList.add('hidden');
-      document.getElementById('evalArea').classList.remove('hidden');
-    }
-
-    function gradeOpen(isCorrect) {
-      let qObj = currentBank[currIdx];
-      if(isCorrect) {
-        score++; addXP(10);
-        mistakes = mistakes.filter(m => m.question !== qObj.question);
-      } else {
-        if(!mistakes.find(m => m.question === qObj.question)) mistakes.push(qObj);
-      }
-      localStorage.setItem('inacap_mistakes', JSON.stringify(mistakes));
-      document.getElementById('evalArea').classList.add('hidden');
-      showFeedback(qObj.explanation);
     }
 
     function showFeedback(text) {
