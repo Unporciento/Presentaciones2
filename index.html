@@ -1,359 +1,135 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="dark">
+<html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>App INACAP - Monitoreo (Modo Desarrollo)</title>
-  <style>
-    :root {
-      --bg: #f3f4f6; --surface: #ffffff; --text: #1f2937; --text-muted: #6b7280;
-      --primary: #dc2626; --border: #e5e7eb;
-      --success: #10b981; --success-bg: #d1fae5; --danger: #ef4444; --danger-bg: #fee2e2;
-      --warning: #f59e0b; --nav-bg: #ffffff; --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      --xp-color: #8b5cf6; /* Morado Monitoreo */
-    }
-    [data-theme="dark"] {
-      --bg: #111827; --surface: #1f2937; --text: #f9fafb; --text-muted: #9ca3af;
-      --primary: #ef4444; --border: #374151;
-      --nav-bg: #1f2937; --success: #34d399; --success-bg: rgba(16, 185, 129, 0.15);
-      --danger: #f87171; --danger-bg: rgba(239, 68, 68, 0.15); --warning: #fbbf24;
-      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
-    }
-    * { box-sizing: border-box; transition: background-color 0.2s, color 0.2s; -webkit-tap-highlight-color: transparent; }
-    body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); padding-bottom: 70px; overflow-x: hidden; }
-    .top-bar { background: var(--nav-bg); padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
-    .xp-badge { background: var(--xp-color); color: white; padding: 4px 12px; border-radius: 999px; font-weight: bold; font-size: 13px; display: flex; align-items: center; gap: 5px; }
-    .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
-    h1, h2, h3 { margin-top: 0; }
-    .sub { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px; cursor: pointer; box-shadow: var(--shadow); display: flex; flex-direction: column; justify-content: center; position: relative; }
-    .card:active { transform: scale(0.98); }
-    .badge { align-self: flex-start; font-size: 11px; padding: 4px 10px; border-radius: 999px; margin-bottom: 8px; font-weight: bold; background: var(--xp-color); color: white; }
-    .btn { width: 100%; border: none; border-radius: 12px; padding: 14px; cursor: pointer; font-weight: bold; font-size: 15px; margin-bottom: 10px; }
-    .btn-primary { background: var(--xp-color); color: white; }
-    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
-    .diff-selector { width: 100%; padding: 12px; border-radius: 12px; border: 2px solid var(--xp-color); background: var(--surface); color: var(--text); font-weight: bold; margin-bottom: 20px; font-size: 16px; outline: none;}
-    .question-box { background: var(--surface); padding: 20px; border-radius: 16px; margin-bottom: 15px; border: 1px solid var(--border); }
-    .explanation { background: var(--surface); border-left: 4px solid var(--xp-color); padding: 15px; border-radius: 0 12px 12px 0; font-size: 14px; line-height: 1.6; white-space: pre-wrap; }
-    .progress-bar-container { width: 100%; height: 8px; background: var(--border); border-radius: 4px; margin-bottom: 15px; overflow: hidden; }
-    .progress-bar-fill { height: 100%; background: var(--xp-color); width: 0%; transition: width 0.3s ease; }
-    .bottom-nav { position: fixed; bottom: 0; width: 100%; background: var(--nav-bg); display: flex; justify-content: space-around; align-items: center; padding: 10px 0 calc(10px + env(safe-area-inset-bottom)); box-shadow: 0 -2px 10px rgba(0,0,0,0.05); border-top: 1px solid var(--border); z-index: 1000; }
-    .bottom-nav button { background: none; border: none; color: var(--text-muted); font-size: 10px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; width: 25%; }
-    .bottom-nav button.active-tab { color: var(--xp-color); font-weight: bold; }
-    .nav-icon { font-size: 20px; }
-    .section { display: none; animation: fadeIn 0.3s ease; }
-    .active { display: block; }
-    .hidden { display: none !important; }
-    textarea { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text); min-height: 120px; font-family: inherit; font-size: 15px; resize: vertical; margin-bottom: 15px;}
-    .diff-badge { font-size: 10px; padding: 3px 8px; border-radius: 4px; float: right; font-weight: bold; }
-    .facil { background: var(--success); color: white; }
-    .medio { background: var(--warning); color: black; }
-    .dificil { background: var(--danger); color: white; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repaso de Matemáticas</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        /* Diseño pensado para fondo de pantalla de celular (Modo Oscuro) */
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #fondo-estudio {
+            width: 100%;
+            max-width: 400px; /* Ancho típico de celular */
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #121212;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .tarjeta {
+            background-color: #1e1e1e;
+            border-left: 5px solid #00a8ff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .tarjeta h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+            color: #00a8ff;
+        }
+        .tarjeta p {
+            margin: 5px 0;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+        .resaltado {
+            color: #4cd137;
+            font-weight: bold;
+        }
+        #btn-captura {
+            margin: 20px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+            background-color: #e84118;
+            border: none;
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(232, 65, 24, 0.4);
+            cursor: pointer;
+            width: 80%;
+            max-width: 300px;
+        }
+        #btn-captura:active {
+            transform: scale(0.98);
+        }
+    </style>
 </head>
 <body>
-  <div class="top-bar">
-    <div style="display: flex; align-items: center; gap: 10px;">
-      <strong style="font-size: 18px;">🚜 App Monitoreo</strong>
-      <button type="button" onclick="toggleTheme()" style="background:none; border:none; font-size: 20px; cursor:pointer;">🌗</button>
-    </div>
-    <div class="xp-badge" id="xpDisplay">✨ Nivel 1</div>
-  </div>
 
-  <div class="container">
-    <section id="homeSection" class="section active">
-      <h2>Modo Desarrollo Escrito</h2>
-      <p class="sub">¡Último repaso! Lee la pregunta, anota los conceptos clave y autoevalúate.</p>
-
-      <label style="font-weight: bold; margin-bottom: 5px; display: block;">Dificultad del Examen:</label>
-      <select id="diffSelector" class="diff-selector">
-        <option value="progresivo">🔥 Progresivo (De fácil a exóticas)</option>
-        <option value="facil">🟢 Solo Fáciles (Conceptos base)</option>
-        <option value="medio">🟡 Nivel Medio (Procesos)</option>
-        <option value="dificil">🔴 Solo Difíciles (Detalles técnicos)</option>
-        <option value="mixto">🔀 Mixto (Al azar total)</option>
-      </select>
-
-      <div class="grid">
-        <div class="card" onclick="startQuiz('week2')"><div class="badge">Semana 2</div><strong>Fallos Mecánicos</strong></div>
-        <div class="card" onclick="startQuiz('week4_1')"><div class="badge">Semana 4</div><strong>Análisis AMEF</strong></div>
-        <div class="card" onclick="startQuiz('week4_2')"><div class="badge">Semana 4</div><strong>Ensayos END</strong></div>
-        <div class="card" onclick="startQuiz('week5')"><div class="badge">Semana 5</div><strong>Industria 4.0</strong></div>
-      </div>
-      <div class="card" style="border-color: var(--xp-color); margin-bottom: 15px;" onclick="startQuiz('all')">
-        <div class="badge" style="background: var(--text);">Modo Dios 👑</div><strong>Simulacro General</strong>
-      </div>
-      <div class="card" style="border-color: var(--warning);" onclick="startQuiz('mistakes')">
-        <div class="badge" style="background: var(--warning); color: black;">Repaso Inteligente 🧠</div><strong>Preguntas en las que fallaste antes</strong>
-      </div>
-    </section>
-
-    <section id="quizSection" class="section">
-      <div class="progress-bar-container"><div class="progress-bar-fill" id="quizProgressBar"></div></div>
-      <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 14px; font-weight: bold;">
-        <span id="quizProgressText">1/10</span>
-        <span id="qDiffBadge" class="diff-badge"></span>
-      </div>
-
-      <div class="question-box">
-        <h3 id="questionText" style="margin: 0; line-height: 1.4;"></h3>
-      </div>
-
-      <div id="openArea">
-        <textarea id="openInput" placeholder="Anota aquí los conceptos de tu respuesta..."></textarea>
-        <button type="button" class="btn btn-primary" id="btnShowAnswer" onclick="revealOpenAnswer()">Ver Respuesta Esperada</button>
+    <div id="fondo-estudio">
         
-        <div id="evalArea" class="hidden">
-          <div class="explanation">
-            <strong style="color: var(--success); font-size: 16px;">✓ Respuesta Correcta:</strong><br><br>
-            <span id="modelAnswerText" style="font-weight: bold;"></span>
-            <br><br>
-            <span id="explanationText" style="font-style: italic; color: var(--text-muted);"></span>
-          </div>
-          <p style="text-align: center; margin-top: 20px; font-weight: bold; font-size: 16px;">Sé honesto, ¿Anotaste los conceptos clave?</p>
-          <div style="display: flex; gap: 10px;">
-            <button type="button" class="btn" style="background: var(--danger); color: white;" onclick="gradeOpen(false)">Me equivoqué ❌</button>
-            <button type="button" class="btn" style="background: var(--success); color: white;" onclick="gradeOpen(true)">La tuve buena ✅</button>
-          </div>
+        <div class="tarjeta">
+            <h2>1. Modelo Logístico (Ahorro)</h2>
+            <p>Ecuación: f(x) = p / (1 + q * e^(-rx))</p>
+            <p>Valor de p (Máximo ahorro): <span class="resaltado">30833.55723</span></p>
+            <p>Valor de q: <span class="resaltado">0.29802</span></p>
+            <p>Valor de r: <span class="resaltado">0.11871</span></p>
+            <p>Ahorro en Enero: <span class="resaltado">24380.86466</span></p>
+            <p>Ahorro Total Ene-Nov: <span class="resaltado">285296.9106</span></p>
         </div>
-      </div>
-      <button type="button" class="btn btn-primary hidden" id="btnNext" onclick="nextQuestion()" style="margin-top: 15px;">Siguiente Pregunta →</button>
-    </section>
 
-    <section id="resultsSection" class="section text-center">
-      <div class="card" style="text-align: center; padding: 40px 20px;">
-        <div id="resEmoji" style="font-size: 60px; margin-bottom: 10px;">🏆</div>
-        <h1 id="resScore" style="font-size: 48px; color: var(--xp-color); margin: 0;">100%</h1>
-        <p class="sub" id="resMsg" style="font-size: 16px; margin-top: 5px;">¡Excelente!</p>
-        <button type="button" class="btn btn-primary" style="margin-top: 20px;" onclick="switchTab('homeSection')">Terminar y volver</button>
-      </div>
-    </section>
-  </div>
+        <div class="tarjeta">
+            <h2>2. Límites por Tabla y al Infinito</h2>
+            <p>Función: (7x^2 + 54x + 72) / (x^2 - 36)</p>
+            <p>Al evaluar f(-6): <span class="resaltado">Indeterminado (0/0)</span></p>
+            <p>Límite cuando x -> -6: <span class="resaltado">2.5</span></p>
+            <p>Límite cuando x -> Infinito: <span class="resaltado">7</span></p>
+        </div>
 
-  <nav class="bottom-nav" id="bottomNav">
-    <button type="button" onclick="switchTab('homeSection')" id="tab-homeSection" class="active-tab"><span class="nav-icon">📝</span><span>Test</span></button>
-  </nav>
+        <div class="tarjeta">
+            <h2>3. Continuidad (Tramos)</h2>
+            <p>Límite para que f(x) exista en x=4:</p>
+            <p>Valor de K: <span class="resaltado">-1</span></p>
+            <p>El límite es: <span class="resaltado">9</span></p>
+            <hr style="border-color: #333; margin: 10px 0;">
+            <p>Parámetros para continuidad en todo su dominio:</p>
+            <p>Valor de a: <span class="resaltado">5</span></p>
+            <p>Valor de b: <span class="resaltado">10</span></p>
+            <p>Límite cuando x -> a: <span class="resaltado">11</span></p>
+            <p>Límite cuando x -> b: <span class="resaltado">11</span></p>
+        </div>
 
-  <script>
-    // ==========================================
-    // MEGA BASE DE DATOS INACAP (TODO A PREGUNTA ABIERTA)
-    // ==========================================
-    const db = {
-      week2: { 
-        facil: [
-          { type: "open", question: "¿Qué se entiende por 'falla' en maquinaria pesada?", sampleAnswer: "Pérdida de funcionalidad parcial o total de una pieza.", explanation: "Si el componente ya no hace su trabajo como debería, se considera en falla." },
-          { type: "open", question: "¿Cómo se clasifica una falla que ocurre debido a la evolución progresiva de una condición anómala?", sampleAnswer: "Falla Progresiva.", explanation: "Se desarrolla con el tiempo, a diferencia de la falla súbita." },
-          { type: "open", question: "¿Cuáles son los componentes de transmisión de potencia que más sufren fallas en maquinaria pesada?", sampleAnswer: "Los engranajes, ejes y rodamientos.", explanation: "Son el corazón mecánico de la transferencia de fuerza." },
-          { type: "open", question: "¿Qué diferencia principal hay entre un eje y un árbol de transmisión?", sampleAnswer: "El árbol transmite potencia girando (sometido a torsión), el eje solo soporta peso.", explanation: "Concepto básico de mecánica." },
-          { type: "open", question: "¿Cuál es la causa principal de la falla por 'Pérdida de geometría del diente' en engranajes?", sampleAnswer: "El desgaste abrasivo.", explanation: "La fricción altera la geometría original del diente." }
-        ],
-        medio: [
-          { type: "open", question: "En el análisis COMTF de rodamientos, nombra una de las causas más comunes de falla externa.", sampleAnswer: "El ingreso de contaminantes (polvo, líquidos).", explanation: "Es letal para las pistas de rodadura." },
-          { type: "open", question: "¿Qué caracteriza a una 'Fractura Frágil' en un engranaje?", sampleAnswer: "Ocurre sin deformación plástica previa y de forma repentina.", explanation: "La fractura frágil ocurre de golpe y sin avisar visualmente mediante estiramiento." },
-          { type: "open", question: "¿Qué es el modo de falla 'Falso Brinell' en un rodamiento?", sampleAnswer: "Es el daño causado por vibraciones cuando el rodamiento está estático.", explanation: "Las vibraciones de máquinas cercanas marcan las pistas del rodamiento apagado." },
-          { type: "open", question: "Si un rodamiento presenta 'Decoloración y deformación elástica', ¿cuál fue el error de montaje?", sampleAnswer: "Montaje a exceso de temperatura.", explanation: "Usar mal el calentador inductivo deforma la estructura molecular." },
-          { type: "open", question: "Explica la diferencia entre el 'Picado' (Pitting) y el 'Arrancamiento' en un engranaje.", sampleAnswer: "El picado es fatiga superficial (micro-fisuras), el arrancamiento es deformación plástica severa por sobrecarga.", explanation: "El picado desprende micro partículas por ciclos constantes." }
-        ],
-        dificil: [
-          { type: "open", question: "Describe qué es el 'flujo plástico por flexión' en un eje de transmisión.", sampleAnswer: "Es una deformación permanente donde el eje se dobla pero no se rompe debido a una sobrecarga estática transversal.", explanation: "Implica deformación permanente sin llegar a la rotura total." },
-          { type: "open", question: "¿Qué regula la norma ISO 15243:2017 en el ámbito del mantenimiento?", sampleAnswer: "Clasifica y estandariza a nivel global los daños y fallas estructurales en rodamientos.", explanation: "Es el manual oficial mundial para leer por qué murió un rodamiento." },
-          { type: "open", question: "Si un eje fracturado presenta 'marcas de playa' (beach marks) que avanzan hacia el centro con una zona final rugosa, ¿cuál es el diagnóstico?", sampleAnswer: "Fatiga mecánica por esfuerzos cíclicos.", explanation: "Las marcas de playa son la huella digital de la propagación lenta de una grieta por fatiga." },
-          { type: "open", question: "¿Qué es el 'Ludimiento' (Fretting) en maquinaria pesada?", sampleAnswer: "Un desgaste mecánico y corrosivo generado por micro-movimientos oscilatorios entre superficies en contacto ajustado.", explanation: "Es crítico en uniones por interferencia sometidas a vibración." }
-        ]
-      },
-      week4_1: { 
-        facil: [
-          { type: "open", question: "¿Qué significan las siglas AMEF?", sampleAnswer: "Análisis de Modo y Efectos de Falla.", explanation: "En inglés FMEA." },
-          { type: "open", question: "¿Cuál es el objetivo principal del AMEF?", sampleAnswer: "Mejorar la calidad, fiabilidad y seguridad de los activos previniendo los fallos antes de que ocurran.", explanation: "Es una herramienta puramente preventiva/predictiva." },
-          { type: "open", question: "¿Qué significa la 'C' en las siglas FMECA?", sampleAnswer: "Criticalidad (Criticality).", explanation: "Añade un análisis matemático de qué tan crítico es el fallo." },
-          { type: "open", question: "¿Qué se evalúa con el factor 'G' (Gravedad) en un AMEF?", sampleAnswer: "El impacto o las consecuencias destructivas/operacionales que tiene el fallo si ocurre.", explanation: "Mide qué tan malo es que pase." }
-        ],
-        medio: [
-          { type: "open", question: "En la tabla de índices, ¿qué significa que la Detección (D) tenga un valor de 10?", sampleAnswer: "Significa que es una falla oculta; no se detectará o no hay programa de verificación para verla venir.", explanation: "Es el peor escenario, el equipo falla sin avisar." },
-          { type: "open", question: "¿Cuál es la fórmula para calcular el NPR (Número de Prioridad de Riesgo)?", sampleAnswer: "NPR = Gravedad x Frecuencia x Detección (G x F x D).", explanation: "El valor final dicta qué componente se debe arreglar o vigilar primero." },
-          { type: "open", question: "¿Para qué se utiliza específicamente el 'AMEF de Procesos'?", sampleAnswer: "Para analizar y prevenir fallos durante las fases de manufactura, producción y ensamblaje.", explanation: "Se enfoca en cómo se hacen las cosas, no en el diseño del producto." },
-          { type: "open", question: "Según la tabla de AMEF del camión minero, ¿cuál es el 'Efecto' de tener el filtro de aire obstruido?", sampleAnswer: "Consumo excesivo de combustible y pérdida de potencia.", explanation: "Falta oxígeno para la mezcla, forzando el motor." }
-        ],
-        dificil: [
-          { type: "open", question: "Menciona una de las debilidades matemáticas o limitaciones del sistema AMEF tradicional.", sampleAnswer: "Los tres factores (G, F, D) tienen el mismo peso matemático en la multiplicación, lo que puede dar un análisis simplista o enmascarar riesgos críticos.", explanation: "Una falla muy grave (10) pero detectable (1) da el mismo NPR que una falla leve (1) indetectable (10)." },
-          { type: "open", question: "Según la valoración FMA, ¿qué nivel de Gravedad (1 a 10) se le asigna a una falla que detiene la producción por más de 8 horas?", sampleAnswer: "Gravedad de 9 a 10 (Muy Alto).", explanation: "Cualquier detención que arruine un turno completo es crítica." },
-          { type: "open", question: "Históricamente, ¿dónde y cuándo comenzó la implementación del FMEA?", sampleAnswer: "En Estados Unidos en los años 50, impulsado por las fuerzas armadas y la NASA.", explanation: "Nació de la necesidad de que los cohetes espaciales no fallaran." },
-          { type: "open", question: "¿Por qué una mala evaluación humana del índice de 'Detección' puede ser fatal en el NPR?", sampleAnswer: "Porque si se subestima, el NPR se mantendrá artificialmente bajo, ignorando fallas catastróficas inminentes.", explanation: "Si crees que puedes detectar la falla pero en realidad no puedes, la máquina se romperá igual." }
-        ]
-      },
-      week4_2: { 
-        facil: [
-          { type: "open", question: "¿Cuál es el propósito de los Ensayos No Destructivos (END)?", sampleAnswer: "Examinar la integridad y propiedades de los materiales sin causarles daños que impidan su uso futuro.", explanation: "Permite inspeccionar la pieza y seguir usándola." },
-          { type: "open", question: "¿Cuál es el ensayo END más antiguo y fundamental por el que debe partir toda inspección?", sampleAnswer: "La Inspección Visual.", explanation: "Es la base, el ojo humano es la primera herramienta." },
-          { type: "open", question: "En Tintas Penetrantes, ¿cuál es la primera etapa obligatoria antes de aplicar el líquido?", sampleAnswer: "La limpieza exhaustiva del material.", explanation: "Si la grieta tiene aceite, óxido o pintura, la tinta no entrará." },
-          { type: "open", question: "¿Por qué el líquido penetrante logra meterse en grietas tan minúsculas?", sampleAnswer: "Porque tiene una muy baja tensión superficial (alta capacidad de mojado y capilaridad).", explanation: "Se 'escurre' hacia el fondo de la fisura naturalmente." }
-        ],
-        medio: [
-          { type: "open", question: "Diferencia técnica entre una 'Discontinuidad' y un 'Defecto'.", sampleAnswer: "Toda alteración es una discontinuidad, pero solo se llama 'Defecto' cuando esa discontinuidad supera los límites de tolerancia de la norma y obliga a rechazar la pieza.", explanation: "Una raya pequeña es discontinuidad; una grieta profunda es un defecto." },
-          { type: "open", question: "¿Qué herramienta usarías para una inspección visual remota dentro del cilindro de un motor sin desarmarlo?", sampleAnswer: "Un boroscopio o endoscopio flexible (videoscopio).", explanation: "Lleva una microcámara a través de espacios estrechos." },
-          { type: "open", question: "¿Cuál es la función del 'Revelador' en el ensayo de tintas penetrantes?", sampleAnswer: "Actuar como un papel secante que absorbe y extrae el penetrante atrapado en la fisura hacia la superficie.", explanation: "El polvo blanco hace contraste con la tinta (generalmente roja) para hacerla visible." },
-          { type: "open", question: "Menciona la limitación más crítica del ensayo de líquidos penetrantes.", sampleAnswer: "Solo sirve para detectar fallas que estén abiertas a la superficie.", explanation: "Si la burbuja o grieta está totalmente por dentro del metal, el líquido no tiene por dónde ingresar." }
-        ],
-        dificil: [
-          { type: "open", question: "¿Qué característica tiene el líquido penetrante Tipo I (Fluorescente)?", sampleAnswer: "Debe ser inspeccionado bajo una lámpara de luz negra (ultravioleta) en una zona oscurecida.", explanation: "Es mucho más sensible que las tintas rojas visibles." },
-          { type: "open", question: "En los métodos de remoción de exceso de penetrante, ¿qué es el Método D (Post emulsificable hidrofílico)?", sampleAnswer: "Se debe aplicar un emulsificador a base de agua para hacer soluble la tinta superficial sin lavar la que está dentro de la grieta, y luego enjuagar.", explanation: "Es un método altamente preciso para no 'sobre-lavar' las grietas." },
-          { type: "open", question: "¿Qué norma u organización internacional rige fuertemente las prácticas estándar de los END?", sampleAnswer: "La norma ASTM (American Society for Testing and Materials).", explanation: "Establece los tiempos, químicos y protocolos obligatorios." },
-          { type: "open", question: "En un diagrama de flujo de END, ¿qué se debe hacer inmediatamente después de la 'Observación' de una marca?", sampleAnswer: "La Interpretación (saber de qué tipo de indicación se trata) y la Evaluación (medirla contra la norma de aceptación/rechazo).", explanation: "Ver la grieta no basta, hay que decidir qué hacer con la pieza." }
-        ]
-      },
-      week5: { 
-        facil: [
-          { type: "open", question: "¿Qué es la 'Industria 4.0'?", sampleAnswer: "Es la cuarta revolución industrial, caracterizada por la digitalización, IoT, Inteligencia Artificial y procesamiento de datos en tiempo real.", explanation: "El paso a las fábricas y obras 'inteligentes'." },
-          { type: "open", question: "¿Qué es un 'Gemelo Digital'?", sampleAnswer: "Una representación o réplica virtual exacta de una máquina o proceso físico en tiempo real.", explanation: "Permite simular comportamientos sin arriesgar el equipo real." },
-          { type: "open", question: "¿Cuál combustible es la principal apuesta 'Cero Emisiones' para reemplazar los grandes motores diésel?", sampleAnswer: "El Hidrógeno (Pilas de combustible).", explanation: "Genera electricidad y su único residuo es vapor de agua." },
-          { type: "open", question: "¿Por qué el 5G es vital para la maquinaria pesada del futuro?", sampleAnswer: "Porque permite la teleoperación a kilómetros de distancia sin latencia (sin retrasos de señal).", explanation: "Si la señal se retrasa 1 segundo, la excavadora podría causar un accidente fatal." }
-        ],
-        medio: [
-          { type: "open", question: "¿De qué trata el 'Concept-X' de Doosan?", sampleAnswer: "Es una solución integral para tener un sitio de construcción automatizado con máquinas sin operadores a bordo.", explanation: "Todo operado por IA y drones topográficos." },
-          { type: "open", question: "En el prototipo LX03 de Volvo, ¿en qué juguete se inspiraron y qué demuestra?", sampleAnswer: "Se inspiraron en un modelo de LEGO. Demuestra el concepto de máquina autónoma inteligente capaz de tomar sus propias decisiones.", explanation: "Es un cargador de ruedas sin cabina." },
-          { type: "open", question: "¿Qué ventaja otorga el sistema 'DIG Assist' de Volvo en las excavadoras?", sampleAnswer: "Elimina la necesidad de comprobar la profundidad manualmente gracias a pantallas táctiles, aumentando la productividad hasta un 50%.", explanation: "Precisión satelital directa a la cabina." },
-          { type: "open", question: "¿Qué sistema convencional ha sido eliminado en la miniexcavadora eléctrica de Komatsu?", sampleAnswer: "El sistema hidráulico completo (reemplazado por cilindros y motores eléctricos lineales).", explanation: "Cero aceite, cero fugas hidráulicas, cero mantención de mangueras." }
-        ],
-        dificil: [
-          { type: "open", question: "¿Cómo se define el 'Mantenimiento 4.0' basado en Inteligencia Artificial?", sampleAnswer: "Es dotar a la máquina de capacidades cognitivas para autodiagnosticarse, predecir fallas analizando Big Data y alertar antes de romperse.", explanation: "Pasa de un mantenimiento preventivo a uno 'predictivo' autónomo." },
-          { type: "open", question: "¿Qué es la plataforma 'XiteCloud' de Hyundai?", sampleAnswer: "Una plataforma en la nube que digitaliza y gestiona integralmente la obra en 3D, uniendo la topografía de drones con la planificación de la flota.", explanation: "Control total de la obra desde una oficina central." },
-          { type: "open", question: "Según los apuntes, ¿cuál es el dilema actual de los fabricantes respecto al diseño de las nuevas máquinas?", sampleAnswer: "Si seguir mejorando la cabina humana o rediseñar la morfología completa eliminando la cabina para hacer máquinas puramente autónomas.", explanation: "Sin humano a bordo, la máquina ya no necesita vidrios, aire acondicionado ni pedales." },
-          { type: "open", question: "¿Por qué el Hidrógeno es un desafío logístico gigantesco para la minería pesada?", sampleAnswer: "Por el uso intensivo: requiere capacidades masivas de almacenamiento de alta presión y redes de suministro en zonas muy remotas y extremas.", explanation: "Es fácil llevar una pipa de diésel, pero llevar hidrógeno líquido a 4000 metros de altura es complejo." }
-        ]
-      }
-    };
+    </div>
 
-    function getQuestionsByDifficulty(weekData, diff) {
-      if (diff === 'facil') return [...weekData.facil];
-      if (diff === 'medio') return [...weekData.medio];
-      if (diff === 'dificil') return [...weekData.dificil];
-      return [...weekData.facil, ...weekData.medio, ...weekData.dificil];
-    }
+    <button id="btn-captura" onclick="tomarCaptura()">📷 Guardar como Imagen</button>
 
-    let currentBank = [], currIdx = 0, score = 0, earnedSessionXP = 0;
-    let mistakes = JSON.parse(localStorage.getItem('monitoreo_open_mistakes')) || [];
-    let userXP = parseInt(localStorage.getItem('monitoreo_open_xp')) || 0;
+    <script>
+        function tomarCaptura() {
+            // Ocultamos el botón para que no salga en la captura
+            const boton = document.getElementById('btn-captura');
+            boton.style.display = 'none';
 
-    function renderXP() {
-      let lvl = Math.floor(userXP / 100) + 1;
-      document.getElementById('xpDisplay').innerHTML = `✨ Nivel ${lvl} | ${userXP} XP`;
-    }
-    renderXP();
+            // Seleccionamos el contenedor de las preguntas
+            const elemento = document.getElementById('fondo-estudio');
 
-    function switchTab(tabId) {
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-      let tabBtn = document.getElementById('tab-' + tabId);
-      if (tabBtn) {
-        document.querySelectorAll('.bottom-nav button').forEach(b => b.classList.remove('active-tab'));
-        tabBtn.classList.add('active-tab');
-      }
-    }
+            // Configuramos html2canvas para mejor calidad en celular
+            html2canvas(elemento, { 
+                scale: 3, 
+                backgroundColor: "#121212" 
+            }).then(canvas => {
+                // Creamos un enlace temporal para forzar la descarga
+                let enlace = document.createElement('a');
+                enlace.download = 'Repaso_Matematicas.png';
+                enlace.href = canvas.toDataURL("image/png");
+                enlace.click();
 
-    function toggleTheme() {
-      let current = document.documentElement.getAttribute('data-theme');
-      let target = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', target);
-    }
-
-    function startQuiz(week) {
-      const diff = document.getElementById('diffSelector').value;
-      currentBank = [];
-      
-      if (week === 'all') {
-        ['week2', 'week4_1', 'week4_2', 'week5'].forEach(w => {
-          currentBank = currentBank.concat(getQuestionsByDifficulty(db[w], diff));
-        });
-      } else if (week === 'mistakes') {
-        if(mistakes.length === 0) return alert("¡Estás impecable! No tienes errores guardados para repasar. 🏆");
-        currentBank = [...mistakes];
-      } else {
-        currentBank = getQuestionsByDifficulty(db[week], diff);
-      }
-
-      if(currentBank.length === 0) return;
-      if (diff !== 'progresivo' && week !== 'mistakes') currentBank.sort(() => Math.random() - 0.5);
-
-      currIdx = 0; score = 0; earnedSessionXP = 0;
-      document.getElementById('bottomNav').classList.add('hidden');
-      switchTab('quizSection');
-      loadQuestion();
-    }
-
-    function loadQuestion() {
-      let q = currentBank[currIdx];
-      document.getElementById('quizProgressText').innerText = `Pregunta ${currIdx + 1} de ${currentBank.length}`;
-      document.getElementById('quizProgressBar').style.width = `${((currIdx) / currentBank.length) * 100}%`;
-      
-      let diffClass = ''; let diffText = 'REPASO';
-      for (let w in db) {
-        if (db[w].facil && db[w].facil.find(x => x.question === q.question)) { diffClass = 'facil'; diffText = 'FÁCIL'; break; }
-        if (db[w].medio && db[w].medio.find(x => x.question === q.question)) { diffClass = 'medio'; diffText = 'MEDIO'; break; }
-        if (db[w].dificil && db[w].dificil.find(x => x.question === q.question)) { diffClass = 'dificil'; diffText = 'EXÓTICA 💀'; break; }
-      }
-      
-      let badge = document.getElementById('qDiffBadge');
-      badge.className = `diff-badge ${diffClass}`;
-      badge.innerText = diffText;
-
-      document.getElementById('questionText').innerText = q.question;
-      
-      let openInput = document.getElementById('openInput');
-      if(openInput) openInput.value = "";
-      
-      document.getElementById('btnShowAnswer').classList.remove('hidden');
-      document.getElementById('evalArea').classList.add('hidden');
-      document.getElementById('btnNext').classList.add('hidden');
-      
-      document.getElementById('modelAnswerText').innerText = q.sampleAnswer;
-      document.getElementById('explanationText').innerText = q.explanation;
-    }
-
-    function revealOpenAnswer() {
-      let openInput = document.getElementById('openInput');
-      if(openInput && openInput.value.trim() === "") {
-        if(!confirm("Aún no has escrito nada. ¿Seguro que quieres ver la respuesta?")) return;
-      }
-      document.getElementById('btnShowAnswer').classList.add('hidden');
-      document.getElementById('evalArea').classList.remove('hidden');
-    }
-
-    function gradeOpen(isCorrect) {
-      let qObj = currentBank[currIdx];
-      if(isCorrect) {
-        score++;
-        userXP += 10;
-        earnedSessionXP += 10;
-        mistakes = mistakes.filter(m => m.question !== qObj.question);
-      } else {
-        if(!mistakes.find(m => m.question === qObj.question)) mistakes.push(qObj);
-      }
-      
-      localStorage.setItem('monitoreo_open_mistakes', JSON.stringify(mistakes));
-      localStorage.setItem('monitoreo_open_xp', userXP);
-      renderXP();
-      
-      document.getElementById('evalArea').classList.add('hidden');
-      document.getElementById('quizProgressBar').style.width = `${((currIdx + 1) / currentBank.length) * 100}%`;
-      document.getElementById('btnNext').classList.remove('hidden');
-    }
-
-    function nextQuestion() {
-      currIdx++;
-      if(currIdx < currentBank.length) loadQuestion();
-      else showResults();
-    }
-
-    function showResults() {
-      switchTab('resultsSection');
-      document.getElementById('bottomNav').classList.remove('hidden');
-      let pct = Math.round((score / currentBank.length) * 100);
-      document.getElementById('resScore').innerText = pct + "%";
-      document.getElementById('resEmoji').innerText = pct >= 80 ? "🔥" : pct >= 50 ? "👍" : "💀";
-      document.getElementById('resMsg').innerText = `Tuviste ${score} respuestas correctas de ${currentBank.length}.\nGanaste +${earnedSessionXP} XP.`;
-    }
-  </script>
+                // Volvemos a mostrar el botón
+                boton.style.display = 'block';
+            });
+        }
+    </script>
 </body>
 </html>
